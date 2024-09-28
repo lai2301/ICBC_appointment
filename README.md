@@ -21,7 +21,11 @@ k6 run --quiet --console-output=stdout -e LAST_NAME=Bellick -e LICENCE_NUMBER=00
 - [ ] Make it as a cron job
 - [ ] Notify via Telegram/Email
 - [ ] Dockerize
+- [ ] Maybe - Auto book appointment? Depends on if I can get the appointment after it's available.
+
+## FAQ
+Q: Why using k6?
+A: I jsut happen to use k6 to test some API at work. And I also want to try something the browser-based feature. No matter what, it's just a script.
 
 ## Authors
-
 - [@LiamCHAN](https://github.com/lai2301/ICBC_appointment)
