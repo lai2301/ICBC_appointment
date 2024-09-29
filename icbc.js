@@ -26,10 +26,10 @@ export default async function () {
   try {
     await page.goto("https://onlinebusiness.icbc.com/webdeas-ui/");
 
-    console.log(`Last Name: ${__ENV.LAST_NAME}`);
-    console.log(`Licence Number: ${__ENV.LICENCE_NUMBER}`);
-    console.log(`Keyword: ${__ENV.KEYWORD}`);
-    console.log(`Target Date: ${__ENV.TARGET_DATE}`);
+    //console.log(`Last Name: ${__ENV.LAST_NAME}`);
+    //console.log(`Licence Number: ${__ENV.LICENCE_NUMBER}`);
+    //console.log(`Keyword: ${__ENV.KEYWORD}`);
+    //console.log(`Target Date: ${__ENV.TARGET_DATE}`);
 
     await page.locator('button[class="primary"]').click();
     await page.locator('input[formcontrolname="drvrLastName"]').type(__ENV.LAST_NAME);
@@ -47,7 +47,7 @@ export default async function () {
     
     // Verify if the checkbox is checked
     const isChecked = await checkbox.isChecked();
-    console.log(`Checkbox is checked: ${isChecked}`);
+    //console.log(`Checkbox is checked: ${isChecked}`);
 
     await Promise.all([
       page.waitForNavigation(),
@@ -65,7 +65,7 @@ export default async function () {
       const text = await div.textContent();
       if (text.trim() === 'By office') {
         await div.click();
-        console.log('Clicked "By office" tab');
+        //console.log('Clicked "By office" tab');
         break;
       }
     }
@@ -73,17 +73,17 @@ export default async function () {
     // Optional: Add a short wait to allow the page to react to the click
     //await page.waitForTimeout(1000);
 
-    await page.locator('input[formcontrolname="officeControl"]').type("Victoria driver licensing");
+    await page.locator('input[formcontrolname="officeControl"]').type(__ENV.LOCATION);
     await page.waitForTimeout(2000); // Wait for 2 seconds
 
     // Find and click the span with "Victoria driver licensing"
     const spans = await page.$$('span.mat-option-text');
     for (const span of spans) {
       const text = await span.textContent();
-      if (text.trim().includes("Victoria driver licensing")) {
+      if (text.trim().includes(__ENV.LOCATION)) {
         await span.scrollIntoViewIfNeeded();
         await span.click();
-        console.log('Clicked "Victoria driver licensing" option');
+        //console.log('Clicked "Victoria driver licensing" option');
         break;
       }
     }
@@ -94,7 +94,7 @@ export default async function () {
     await page.waitForTimeout(5000);
 
     // Extract and log the appointment data
-    const appointmentData = await page.evaluate(() => {
+    const appointmentData = await page.evaluate((targetDate) => {
       const appointments = [];
       const dateElements = document.querySelectorAll('div.date-title');
       
@@ -102,8 +102,8 @@ export default async function () {
         const dateText = dateElement.textContent.trim();
         const date = new Date(dateText);
         
-        // Only process dates before December 2024
-        if (date < new Date('2024-12-01')) {
+        // Only process dates before the target date
+        if (date < new Date(targetDate)) {
           const timeElements = dateElement.nextElementSibling.querySelectorAll('mat-button-toggle');
           
           timeElements.forEach(timeElement => {
@@ -114,7 +114,7 @@ export default async function () {
       });
 
       return appointments;
-    });
+    }, __ENV.TARGET_DATE);
 
     if (appointmentData.length > 0) {
       const logContent = `Available Appointments: (${new Date().toISOString()}):\n` +
@@ -122,13 +122,18 @@ export default async function () {
         '\n\n';
 
       // Log to console
-      console.log(logContent);
+      console.log("Timespamp: " + getCurrentTimestamp() + " " + logContent);
     } else {
-      console.log(`No appointments available before ${__ENV.TARGET_DATE}`);
+      console.log("Timespamp: " + getCurrentTimestamp() + " No appointments available before " + __ENV.TARGET_DATE);
     }
 
   } finally {
     sleep(5);
     await page.close();
   }
+}
+
+function getCurrentTimestamp() {
+  const now = new Date();
+  return now.toISOString();
 }
