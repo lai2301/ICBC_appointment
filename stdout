@@ -10,3 +10,20 @@
 [36mINFO[0m[0003] Clicked "By office" tab                      
 [36mINFO[0m[0011] No appointments available before 2024-12-01  
 [36mINFO[0m[0012] Timespamp: 2024-09-29T08:59:51.914Z No appointments available before 2024-12-01 
+[36mINFO[0m[0013] No appointments available before 2024-12-01  
+[36mINFO[0m[0013] All appointments found (2024-10-01T10:03:20.994Z): 
+[36mINFO[0m[0013] []                                           
+[36mINFO[0m[0011] An error occurred: Object has no member '$eval' 
+[36mINFO[0m[0011] Script finished at: 2024-10-01T10:05:54.316Z 
+[36mINFO[0m[0018] An error occurred: Object has no member '$eval' 
+[36mINFO[0m[0018] Script finished at: 2024-10-10T22:28:05.347Z 
+[36mINFO[0m[0020] An error occurred: Object has no member '$eval' 
+[36mINFO[0m[0020] Script finished at: 2024-10-21T10:22:30.052Z 
+[36mINFO[0m[0305] An error occurred: undefined                 
+[36mINFO[0m[0305] Script finished at: 2024-10-22T02:13:45.750Z 
+[36mINFO[0m[0302] An error occurred: undefined                 
+[36mINFO[0m[0302] Script finished at: 2024-10-22T09:17:39.193Z 
+[36mINFO[0m[0031] An error occurred: undefined                 
+[36mINFO[0m[0031] Script finished at: 2024-10-22T16:47:09.058Z 
+[36mINFO[0m[0012] An error occurred: Object has no member '$eval' 
+[36mINFO[0m[0012] Script finished at: 2024-10-22T16:51:40.985Z 

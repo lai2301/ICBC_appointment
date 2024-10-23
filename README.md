@@ -14,6 +14,11 @@ K6_BROWSER_HEADLESS=false k6 run --quiet --console-output=stdout LAST_NAME=Belli
 # Without browser
 k6 run --quiet --console-output=stdout -e LAST_NAME=Bellick -e LICENCE_NUMBER=00123424 -e KEYWORD=Bellick -e LOCATION="Victoria driver licensing" -e TARGET_DATE=2024-12-01 icbc.js
 ```
+## Run with Docker
+```bash
+docker build -t icbc_appointment .
+docker run -e LAST_NAME=Bellick -e LICENCE_NUMBER=00123424 -e KEYWORD=Bellick -e LOCATION="Victoria driver licensing" -e TARGET_DATE=2024-12-01 icbc_appointment
+```
 
 ## Next Step
 - [x] Add location as variable
