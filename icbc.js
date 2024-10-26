@@ -98,33 +98,45 @@ export default async function () {
       const appointments = [];
       const dateElements = document.querySelectorAll('div.date-title');
       
+      const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+    
+      const targetDateObj = new Date(targetDate);
+      //console.log("Target date:", targetDateObj.toISOString());
+    
       dateElements.forEach(dateElement => {
         const dateText = dateElement.textContent.trim();
-        const date = new Date(dateText);
+        //console.log("Date text:", dateText);
+        
+        // Parse the date string
+        const [, , month, day, year] = dateText.match(/(\w+),\s(\w+)\s(\d+)(?:st|nd|rd|th),\s(\d{4})/);
+        const monthIndex = monthNames.indexOf(month);
+        const date = new Date(year, monthIndex, parseInt(day) - 1); // Subtract 1 from day to account for UTC
+        //console.log("Parsed date:", date.toISOString());
         
         // Only process dates before the target date
-        if (date < new Date(targetDate)) {
-          const timeElements = dateElement.nextElementSibling.querySelectorAll('mat-button-toggle');
-          
-          timeElements.forEach(timeElement => {
-            const time = timeElement.textContent.trim();
-            appointments.push({ date: dateText, time });
-          });
+        if (date < targetDateObj) {
+          //console.log("Date is before target date");
+          appointments.push(dateText);
+        } else {
+          //console.log("Date is not before target date");
         }
       });
-
+    
       return appointments;
     }, __ENV.TARGET_DATE);
-
+    
+    //console.log("Appointment data:", JSON.stringify(appointmentData));
+    
     if (appointmentData.length > 0) {
-      const logContent = `Available Appointments: (${new Date().toISOString()}):\n` +
-        appointmentData.map(app => `${app.date} at ${app.time}`).join('\n') +
+      const logContent = `Available Dates:\n` +
+        appointmentData.join('\n') +
         '\n\n';
-
+    
       // Log to console
-      console.log("Timespamp: " + getCurrentTimestamp() + " " + logContent);
+      console.log(logContent);
     } else {
-      console.log("Timespamp: " + getCurrentTimestamp() + " No appointments available before " + __ENV.TARGET_DATE);
+      console.log("Timestamp: " + getCurrentTimestamp() + " No appointments available before " + __ENV.TARGET_DATE);
     }
 
   } finally {

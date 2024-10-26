@@ -23,9 +23,9 @@ docker run -e LAST_NAME=Bellick -e LICENCE_NUMBER=00123424 -e KEYWORD=Bellick -e
 ## Next Step
 - [x] Add location as variable
 - [x] Add Target Date as variable
-- [ ] Make it as a cron job
+- [x] Make it as a cron job
 - [ ] Notify via Telegram/Email
-- [ ] Dockerize
+- [x] Dockerize
 - [ ] Maybe - Auto book appointment? Depends on if I can get the appointment after it's available.
 
 ## FAQ
